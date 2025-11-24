@@ -1,505 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Al-Jazaa Ph. | Elegant Modest Wear</title>
-
-<!-- Fonts & Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-<style>
-    :root {
-        --primary: #1b4d3e; /* Elegant Green */
-        --gold: #c5a059; /* Gold Accent */
-        --bg: #F9F9F7; /* Off White */
-        --grey: #F0F0F0;
-        --dark: #2d2d2d;
-    }
-
-    /* Reset & Base */
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { margin: 0; font-family: 'Lato', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
-    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; margin: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Jazaa Ph.</title>
     
-    /* Utilities */
-    .d-none { display: none !important; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-    .btn { cursor: pointer; border: none; padding: 12px 30px; font-weight: bold; letter-spacing: 1px; transition: 0.3s; font-size: 0.9rem; text-transform: uppercase; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: #13382d; transform: translateY(-2px); }
-    .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
-    
-    /* Navbar */
-    nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
-    .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; }
-    .nav-menu a { margin-left: 20px; text-decoration: none; color: var(--dark); font-size: 0.95rem; }
-    .nav-menu a:hover { color: var(--primary); }
-    .cart-btn { position: relative; cursor: pointer; }
-    .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--gold); color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 0.7rem; display: flex; justify-content: center; align-items: center; }
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-    /* Shop Layout */
-    .shop-layout { display: flex; gap: 40px; margin-top: 30px; }
-    
-    /* Sidebar */
-    .sidebar { width: 220px; flex-shrink: 0; height: calc(100vh - 100px); position: sticky; top: 90px; overflow-y: auto; padding-right: 10px; border-right: 1px solid #eee; }
-    .sidebar h4 { color: var(--gold); margin-bottom: 20px; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; }
-    .cat-btn { display: block; width: 100%; text-align: left; padding: 12px 0; background: none; border: none; color: #666; font-size: 1rem; cursor: pointer; transition: 0.3s; border-bottom: 1px solid #f5f5f5; }
-    .cat-btn:hover, .cat-btn.active { color: var(--primary); font-weight: bold; padding-left: 10px; }
+    <style>
+        :root {
+            --primary: #1b4d3e; /* Elegant Green */
+            --primary-dark: #0f2b23;
+            --gold: #D4AF37;
+            --cream: #F9F9F7;
+            --text: #333;
+        }
 
-    /* Product Grid */
-    .grid { flex-grow: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; align-content: start; }
-    .card { background: white; transition: 0.3s; cursor: pointer; position: relative; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-    .card-img { width: 100%; height: 280px; object-fit: cover; }
-    .card-info { padding: 15px; text-align: center; }
-    .stock-badge { position: absolute; top: 10px; right: 10px; padding: 5px 12px; font-size: 0.75rem; color: white; font-weight: bold; text-transform: uppercase; }
-    .bg-in { background: var(--primary); }
-    .bg-out { background: #999; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--cream); color: var(--text); overflow-x: hidden; }
+        h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Playfair Display', serif; }
 
-    /* Product Detail Page */
-    #product-page { position: fixed; inset: 0; background: white; z-index: 200; overflow-y: auto; padding-bottom: 50px; }
-    .back-btn { margin: 20px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
-    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1000px; margin: 0 auto; padding: 20px; }
-    .detail-img { width: 100%; height: 500px; object-fit: cover; border: 1px solid #eee; }
-    
-    /* Slant Options */
-    .opt-group { margin: 25px 0; }
-    .opt-label { font-weight: bold; font-size: 0.9rem; text-transform: uppercase; color: #777; margin-bottom: 10px; display: block; }
-    .slant-container { display: flex; flex-wrap: wrap; gap: 15px; }
-    .slant-box {
-        border: 1px solid #ccc;
-        padding: 10px 20px;
-        min-width: 50px;
-        text-align: center;
-        transform: skewX(-15deg);
-        cursor: pointer;
-        transition: 0.2s;
-        background: white;
-    }
-    .slant-box span { display: block; transform: skewX(15deg); font-weight: 600; }
-    .slant-box.selected { background: var(--primary); color: white; border-color: var(--primary); }
-    .slant-box:hover:not(.selected) { background: #f4f4f4; }
+        /* Announcement Bar */
+        .announcement-bar { background-color: var(--primary-dark); color: var(--gold); text-align: center; font-size: 0.8rem; padding: 8px 0; letter-spacing: 1px; }
 
-    /* Cart & Checkout */
-    .table-container { background: white; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-    .cart-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; }
-    .checkout-form { max-width: 600px; margin: 0 auto; background: white; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; color: #555; }
-    .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; font-family: inherit; }
-    
-    /* Toast Notification */
-    #toast { 
-        visibility: hidden; min-width: 250px; background-color: var(--primary); color: #fff; 
-        text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 3000; 
-        left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    #toast.show { visibility: visible; -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-    @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-    @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        /* Navbar */
+        .navbar { background-color: white; box-shadow: 0 2px 15px rgba(0,0,0,0.05); padding: 15px 0; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: var(--primary) !important; }
+        .nav-link { color: #555 !important; font-weight: 500; transition: 0.3s; margin: 0 10px; }
+        .nav-link:hover { color: var(--primary) !important; }
+        .cart-badge { background-color: var(--gold); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; vertical-align: top; margin-left: -5px; }
 
-    /* Loader */
-    #loader { position: fixed; inset: 0; background: rgba(255,255,255,0.9); z-index: 5000; display: flex; justify-content: center; align-items: center; }
-    
-    /* Mobile */
-    @media(max-width: 768px) {
-        .shop-layout { flex-direction: column; }
-        .sidebar { width: 100%; height: auto; position: static; white-space: nowrap; overflow-x: auto; padding: 10px 0; border: none; }
-        .cat-btn { display: inline-block; width: auto; padding: 5px 15px; margin-right: 10px; background: #fff; border: 1px solid #eee; border-radius: 20px; }
-        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .detail-grid { grid-template-columns: 1fr; }
-        .detail-img { height: 350px; }
-    }
-</style>
+        /* Carousel */
+        .carousel-item img { height: 60vh; object-fit: cover; filter: brightness(0.8); }
+        .carousel-caption h5 { font-family: 'Playfair Display'; font-size: 2.5rem; color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+
+        /* Section Styling */
+        .section-title { position: relative; display: inline-block; margin-bottom: 40px; color: var(--primary); }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 10px auto 0; }
+        
+        /* Category Sidebar (Sticky) */
+        .cat-sidebar { position: sticky; top: 100px; background: white; padding: 20px; border: 1px solid #eee; }
+        .cat-btn { display: block; width: 100%; text-align: left; padding: 10px 0; border: none; background: none; color: #666; transition: 0.3s; border-bottom: 1px solid #f0f0f0; }
+        .cat-btn:hover, .cat-btn.active { color: var(--primary); font-weight: bold; padding-left: 10px; color: var(--primary); }
+
+        /* Product Card */
+        .product-card { border: none; background: white; transition: all 0.3s; cursor: pointer; height: 100%; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .card-img-top { height: 300px; object-fit: cover; }
+        .stock-label { position: absolute; top: 10px; right: 10px; padding: 4px 10px; font-size: 0.75rem; color: white; font-weight: 600; text-transform: uppercase; z-index: 2; }
+        .in-stock { background-color: var(--primary); }
+        .out-stock { background-color: #999; }
+
+        /* Buttons */
+        .btn-custom { background-color: var(--primary); color: white; border-radius: 0; padding: 10px 25px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: 0.3s; }
+        .btn-custom:hover { background-color: var(--primary-dark); color: white; }
+        .btn-custom:disabled { background-color: #ccc; border:none; }
+
+        /* Slant Options (Size/Height) - FIXED & SMALLER */
+        .slant-box {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 5px 15px; /* Smaller padding */
+            margin: 5px;
+            font-size: 0.85rem;
+            transform: skewX(-15deg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+            user-select: none;
+        }
+        .slant-box span {
+            display: block;
+            transform: skewX(15deg); /* Un-skew text */
+            font-weight: 600;
+        }
+        .slant-box:hover { border-color: var(--primary); background: #f4f4f4; }
+        .slant-box.selected { background-color: var(--primary); color: white; border-color: var(--primary); }
+
+        /* Full Screen Overlay for Details */
+        #detail-view { position: fixed; inset: 0; background: white; z-index: 2000; overflow-y: auto; display: none; padding-bottom: 50px; }
+        
+        /* Footer */
+        footer { background-color: var(--primary-dark); color: #ccc; padding: 50px 0; margin-top: 50px; }
+        footer a { color: var(--gold); text-decoration: none; }
+        
+        /* Loading */
+        #loader { position: fixed; inset: 0; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+    </style>
 </head>
 <body>
 
+<!-- Setup Variable -->
+<script>const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyhtsYfzJfDUYn3MYec3Ul_7fHVf2J7LBFMH-LCvFeBUFfuu-4wqbSGCNKUbzDFVI6k/exec";</script>
+
 <!-- Loader -->
-<div id="loader"><i class="fas fa-spinner fa-spin fa-2x" style="color:var(--primary)"></i></div>
+<div id="loader">
+    <div class="spinner-border text-success" role="status"></div>
+    <h3 class="mt-3" style="color:var(--primary)">Al-Jazaa Ph.</h3>
+</div>
 
-<!-- Toast -->
-<div id="toast">Item Added to Cart</div>
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+    FREE SHIPPING ON ORDERS ABOVE ₱2,000 • NEW COLLECTION AVAILABLE
+</div>
 
-<!-- Navigation -->
-<nav>
-    <a href="#" onclick="showShop()" class="logo">Al-Jazaa Ph.</a>
-    <div class="nav-menu">
-        <a href="#" onclick="showShop()">Shop</a>
-        <a href="#" onclick="showTrack()">Track Order</a>
-        <a href="#" onclick="showCart()" class="cart-btn">
-            <i class="fas fa-shopping-bag fa-lg"></i>
-            <span id="cart-count" class="cart-badge">0</span>
-        </a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#" onclick="goHome()">Al-Jazaa Ph.</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navContent">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="#" onclick="goHome()">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('track')">Track Order</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showPage('cart')">
+                        <i class="fas fa-shopping-bag fa-lg"></i>
+                        <span id="cart-count" class="cart-badge">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
-<div class="container">
+<!-- === HOMEPAGE === -->
+<div id="page-home">
+    
+    <!-- Image Carousel -->
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop" class="d-block w-100" alt="Fashion 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="animate__animated animate__fadeInDown">Modesty in Every Detail</h5>
+                    <p>Discover our new Abaya collection.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop" class="d-block w-100" alt="Fashion 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Elegant Green Aesthetics</h5>
+                    <p>Tailored for your comfort and style.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- HOME / SHOP PAGE -->
-    <div id="page-shop" class="page-section">
-        <div class="shop-layout">
+    <!-- Main Shop Area -->
+    <div class="container my-5">
+        <div class="row">
             <!-- Sidebar -->
-            <div class="sidebar">
-                <h4>Categories</h4>
-                <div id="category-container">
-                    <!-- Categories injected here -->
+            <div class="col-lg-3 mb-4">
+                <div class="cat-sidebar shadow-sm rounded">
+                    <h5 class="mb-3" style="color:var(--primary)">Categories</h5>
+                    <div id="category-list">
+                        <!-- Injected by JS -->
+                    </div>
                 </div>
             </div>
             
-            <!-- Products -->
-            <div id="product-container" class="grid">
-                <!-- Products injected here -->
+            <!-- Products Grid -->
+            <div class="col-lg-9">
+                <div class="text-center">
+                    <h2 class="section-title">Latest Collection</h2>
+                </div>
+                <!-- Search -->
+                <input type="text" id="searchBox" class="form-control mb-4" placeholder="Search for products..." onkeyup="doSearch()">
+                
+                <div class="row g-4" id="product-grid">
+                    <!-- Products Injected by JS -->
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- CART PAGE -->
-    <div id="page-cart" class="page-section d-none">
-        <h2 style="margin: 30px 0;">Your Shopping Cart</h2>
-        <div class="table-container">
-            <div id="cart-items"></div>
-            <div style="text-align: right; margin-top: 30px;">
-                <h3>Total: <span id="cart-total">$0.00</span></h3>
-                <br>
-                <button class="btn btn-outline" onclick="showShop()">Continue Shopping</button>
-                <button class="btn btn-primary" onclick="showCheckout()">Checkout (GCash)</button>
+<!-- === DETAIL OVERLAY === -->
+<div id="detail-view">
+    <div class="container py-5">
+        <button class="btn btn-outline-secondary mb-4" onclick="closeDetail()">
+            <i class="fas fa-arrow-left"></i> Back to Shop
+        </button>
+        
+        <div class="row gx-5">
+            <div class="col-md-6 mb-4">
+                <img id="dt-img" src="" class="img-fluid rounded shadow-sm w-100" style="max-height:600px; object-fit:cover;">
+            </div>
+            <div class="col-md-6">
+                <h1 id="dt-name" class="text-success display-5">Name</h1>
+                <h2 id="dt-price" class="text-muted mb-4">Price</h2>
+                <p id="dt-desc" class="lead fs-6 text-secondary">Description</p>
+                
+                <hr class="my-4">
+
+                <!-- OPTIONS -->
+                <div class="mb-4">
+                    <label class="fw-bold mb-2">Select Size:</label>
+                    <div id="size-area">
+                        <!-- JS generates slant boxes here -->
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="fw-bold mb-2">Select Height:</label>
+                    <div id="height-area" style="max-width:400px;">
+                        <!-- JS generates slant boxes here -->
+                    </div>
+                </div>
+
+                <button id="add-btn" class="btn btn-custom w-100 py-3 mt-3 fw-bold" onclick="addToCart()">ADD TO CART</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- CHECKOUT PAGE -->
-    <div id="page-checkout" class="page-section d-none">
-        <h2 style="text-align:center; margin: 30px 0;">Checkout</h2>
-        <form class="checkout-form" onsubmit="processOrder(event)">
-            <h4>Shipping Info</h4>
-            <div class="form-group"><label>Name</label><input id="c-name" required></div>
-            <div class="form-group"><label>Phone</label><input id="c-phone" type="tel" required></div>
-            <div class="form-group"><label>Address</label><textarea id="c-addr" rows="3" required></textarea></div>
-            
-            <hr style="margin: 30px 0;">
-            
-            <h4>Payment (GCash)</h4>
-            <div style="background: #e6fffa; padding: 15px; border: 1px solid #1b4d3e; color: #1b4d3e; margin-bottom: 15px;">
-                <strong>Send Total to GCash: 09XX-XXX-XXXX</strong><br>
-                <small>Account Name: Al-Jazaa Ph.</small>
+<!-- === CART PAGE === -->
+<div id="page-cart" class="container my-5 d-none">
+    <h2 class="section-title">Your Cart</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <tbody id="cart-table"></tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label>Reference Number</label>
-                <input id="c-ref" placeholder="Enter Reference No. (Required)" required>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4 shadow-sm border-0 bg-light">
+                <h4>Order Summary</h4>
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Total:</span>
+                    <span class="fw-bold text-success fs-5" id="cart-total">0.00</span>
+                </div>
+                <button class="btn btn-outline-dark w-100 mb-2" onclick="goHome()">Continue Shopping</button>
+                <button class="btn btn-custom w-100" onclick="showPage('checkout')">Checkout (GCash)</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- === CHECKOUT PAGE === -->
+<div id="page-checkout" class="container my-5 d-none" style="max-width: 800px;">
+    <h2 class="section-title text-center">Secure Checkout</h2>
+    <div class="card p-4 shadow border-0">
+        <form onsubmit="submitOrder(event)">
+            <h5 class="mb-3 text-success">1. Shipping Information</h5>
+            <div class="mb-3">
+                <label>Full Name</label>
+                <input type="text" class="form-control" id="c-name" required>
+            </div>
+            <div class="mb-3">
+                <label>Phone Number</label>
+                <input type="number" class="form-control" id="c-phone" required>
+            </div>
+            <div class="mb-3">
+                <label>Complete Address</label>
+                <textarea class="form-control" id="c-addr" rows="3" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width:100%">Place Order</button>
-            <button type="button" class="btn btn-outline" style="width:100%; margin-top:10px;" onclick="showCart()">Back to Cart</button>
+            <h5 class="mb-3 mt-4 text-success">2. Payment (GCash)</h5>
+            <div class="alert alert-success">
+                <strong>GCash Number: 09XX-XXX-XXXX</strong><br>
+                Name: Al-Jazaa Business<br>
+                Total to Pay: <strong id="pay-total"></strong>
+            </div>
+            <div class="mb-3">
+                <label>GCash Reference Number</label>
+                <input type="text" class="form-control" id="c-ref" placeholder="Enter Reference No. (Required)" required>
+            </div>
+
+            <button type="submit" class="btn btn-custom w-100 py-3 mt-2">PLACE ORDER</button>
+            <button type="button" class="btn btn-light w-100 mt-2" onclick="showPage('cart')">Back to Cart</button>
         </form>
     </div>
-
-    <!-- TRACK PAGE -->
-    <div id="page-track" class="page-section d-none" style="max-width:600px; margin: 50px auto; text-align:center;">
-        <h2>Track Your Order</h2>
-        <div style="margin-top:20px; display:flex; gap:10px;">
-            <input id="track-input" class="form-control" placeholder="Enter Order ID (e.g. ALJ-12345)" style="padding:10px; width:100%;">
-            <button class="btn btn-primary" onclick="trackOrder()">Track</button>
-        </div>
-        <div id="track-res" class="card d-none" style="padding:20px; margin-top:20px; text-align:left;">
-            <p><strong>Status:</strong> <span id="t-status"></span></p>
-            <p><strong>Date:</strong> <span id="t-date"></span></p>
-            <p><strong>Total:</strong> <span id="t-total"></span></p>
-        </div>
-    </div>
-
 </div>
 
-<!-- PRODUCT OVERLAY (POPUP) -->
-<div id="product-page" class="d-none">
-    <div class="back-btn" onclick="closeProduct()"><i class="fas fa-arrow-left"></i> Back to Shopping</div>
-    <div class="detail-grid">
-        <img id="detail-img" src="" class="detail-img">
-        <div>
-            <h1 id="detail-title" style="color:var(--primary)">Product Name</h1>
-            <h3 id="detail-price" style="color:#666; margin: 10px 0;">$0.00</h3>
-            <p id="detail-desc" style="line-height:1.6; color:#555;">Desc</p>
-            
-            <hr>
+<!-- === TRACKING PAGE === -->
+<div id="page-track" class="container my-5 d-none text-center" style="max-width:600px;">
+    <h2 class="section-title">Track Order</h2>
+    <div class="input-group mb-3">
+        <input type="text" id="track-id" class="form-control" placeholder="Order ID (e.g. ALJ-123456)">
+        <button class="btn btn-custom" onclick="trackOrder()">Search</button>
+    </div>
+    <div id="track-result" class="card p-4 shadow d-none text-start">
+        <h4 class="text-success" id="t-status"></h4>
+        <p><strong>Date:</strong> <span id="t-date"></span></p>
+        <p><strong>Total:</strong> <span id="t-total"></span></p>
+    </div>
+</div>
 
-            <!-- Options -->
-            <div class="opt-group">
-                <span class="opt-label">Select Size</span>
-                <div class="slant-container" id="size-options">
-                    <div class="slant-box" onclick="pick('size','S',this)"><span>S</span></div>
-                    <div class="slant-box" onclick="pick('size','M',this)"><span>M</span></div>
-                    <div class="slant-box" onclick="pick('size','L',this)"><span>L</span></div>
-                    <div class="slant-box" onclick="pick('size','XL',this)"><span>XL</span></div>
-                    <div class="slant-box" onclick="pick('size','XXL',this)"><span>XXL</span></div>
-                </div>
-            </div>
+<!-- Footer -->
+<footer>
+    <div class="container text-center">
+        <h2 style="font-family:'Playfair Display'; color:white;">Al-Jazaa Ph.</h2>
+        <p class="text-muted mt-2">Elegant modest wear for the modern woman.</p>
+        <div class="mt-4">
+            <a href="#" class="mx-2"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="#" class="mx-2"><i class="fab fa-instagram fa-lg"></i></a>
+            <a href="#" class="mx-2"><i class="fab fa-tiktok fa-lg"></i></a>
+        </div>
+        <hr style="border-color:#555; margin: 30px 0;">
+        <p class="small">&copy; 2024 Al-Jazaa Ph. All rights reserved.</p>
+    </div>
+</footer>
 
-            <div class="opt-group">
-                <span class="opt-label">Select Height</span>
-                <div class="slant-container" id="height-options">
-                    <!-- Heights 4'0 to 5'9 generated via JS -->
-                </div>
-            </div>
-
-            <!-- Action -->
-            <button id="add-cart-btn" class="btn btn-primary" style="width:100%; padding: 15px; font-size:1.1rem; margin-top:20px;" onclick="addToCart()">
-                ADD TO CART
-            </button>
+<!-- Toast (Custom Alert) -->
+<div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 5000">
+    <div id="liveToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toast-msg">Action Successful</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
         </div>
     </div>
 </div>
 
+<!-- Javascript Logic -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // *** SETUP ***
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhtsYfzJfDUYn3MYec3Ul_7fHVf2J7LBFMH-LCvFeBUFfuu-4wqbSGCNKUbzDFVI6k/exec"; // <--- PASTE YOUR LINK HERE
-    // *************
+    // DATA STORE
+    let allProducts = [];
+    let cart = JSON.parse(localStorage.getItem('aljazaa_cart')) || [];
+    let curProduct = {};
+    let selection = { size: null, height: null };
 
-    let products = [];
-    let cart = JSON.parse(localStorage.getItem('alj_cart')) || [];
-    let currentProd = {};
-    let selections = { size: "", height: "" };
-
-    window.onload = function() {
-        genHeights();
+    // INITIALIZE
+    document.addEventListener("DOMContentLoaded", () => {
         fetchProducts();
-        updateBadge();
-    };
+        updateCartCount();
+        generateOptions(); // Fixed logic here
+    });
+
+    // --- GENERATORS ---
+    function generateOptions() {
+        // Size
+        const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+        document.getElementById('size-area').innerHTML = sizes.map(s => 
+            `<div class="slant-box" onclick="pick('size', '${s}', this)"><span>${s}</span></div>`
+        ).join('');
+
+        // Height (Fixed Loop)
+        let heightHtml = '';
+        for(let ft=4; ft<=5; ft++) {
+            for(let inc=0; inc<=11; inc++) {
+                if(ft===5 && inc > 9) break; // Stop at 5'9"
+                let val = `${ft}'${inc}"`;
+                heightHtml += `<div class="slant-box" onclick="pick('height', '${val}', this)"><span>${val}</span></div>`;
+            }
+        }
+        document.getElementById('height-area').innerHTML = heightHtml;
+    }
 
     // --- NAVIGATION ---
     function hideAll() {
-        document.querySelectorAll('.page-section').forEach(el => el.classList.add('d-none'));
-        document.getElementById('product-page').classList.add('d-none');
+        ['page-home', 'page-cart', 'page-checkout', 'page-track'].forEach(id => {
+            document.getElementById(id).classList.add('d-none');
+        });
+        document.getElementById('detail-view').style.display = 'none';
+        document.getElementById('heroCarousel').classList.add('d-none'); // Hide hero by default on inner pages
     }
-    function showShop() { hideAll(); document.getElementById('page-shop').classList.remove('d-none'); }
-    function showCart() { hideAll(); document.getElementById('page-cart').classList.remove('d-none'); renderCart(); }
-    function showCheckout() { hideAll(); document.getElementById('page-checkout').classList.remove('d-none'); }
-    function showTrack() { hideAll(); document.getElementById('page-track').classList.remove('d-none'); }
-    function closeProduct() { document.getElementById('product-page').classList.add('d-none'); }
 
-    // --- GENERATORS ---
-    function genHeights() {
-        const heights = [];
-        for(let f=4; f<=5; f++) {
-            for(let i=0; i<=11; i++) {
-                if(f===5 && i>9) break; 
-                heights.push(`${f}'${i}"`);
-            }
+    function goHome() {
+        hideAll();
+        document.getElementById('page-home').classList.remove('d-none');
+        document.getElementById('heroCarousel').classList.remove('d-none'); // Show hero
+    }
+
+    function showPage(page) {
+        hideAll();
+        document.getElementById('page-' + page).classList.remove('d-none');
+        if(page === 'cart') renderCart();
+        if(page === 'checkout') {
+            document.getElementById('pay-total').innerText = document.getElementById('cart-total').innerText;
         }
-        const box = document.getElementById('height-options');
-        box.innerHTML = heights.map(h => `<div class="slant-box" onclick="pick('height','${h}',this)"><span>${h}</span></div>`).join('');
     }
 
-    // --- DATA ---
+    // --- API & DATA ---
     function fetchProducts() {
-        fetch(SCRIPT_URL + "?action=getProducts")
-        .then(res => res.json())
-        .then(data => {
-            products = data;
-            document.getElementById('loader').classList.add('d-none');
-            renderCats();
-            renderProds(products);
-        })
-        .catch(err => alert("Error loading products. Check your Internet or Script URL."));
+        fetch(WEB_APP_URL + "?action=getProducts")
+            .then(r => r.json())
+            .then(data => {
+                allProducts = data;
+                document.getElementById('loader').style.display = 'none';
+                renderCategories();
+                renderProducts(allProducts);
+            })
+            .catch(e => {
+                alert("Could not load products. Please refresh.");
+                document.getElementById('loader').style.display = 'none';
+            });
     }
 
-    function renderCats() {
-        const cats = ["All", ...new Set(products.map(p => p.category))];
-        const bar = document.getElementById('category-container');
-        bar.innerHTML = cats.map(c => 
-            `<button class="cat-btn ${c==='All'?'active':''}" onclick="filter('${c}', this)">${c}</button>`
+    function renderCategories() {
+        const cats = ['All', ...new Set(allProducts.map(p => p.category))];
+        document.getElementById('category-list').innerHTML = cats.map(c => 
+            `<button class="cat-btn ${c==='All'?'active':''}" onclick="filterCat('${c}', this)">${c}</button>`
         ).join('');
     }
 
-    function filter(cat, btn) {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const list = cat === 'All' ? products : products.filter(p => p.category === cat);
-        renderProds(list);
-    }
-
-    function renderProds(list) {
-        const grid = document.getElementById('product-container');
+    function renderProducts(list) {
+        const grid = document.getElementById('product-grid');
         grid.innerHTML = list.map(p => `
-            <div class="card animate__animated animate__fadeIn" onclick="openDetail('${p.id}')">
-                <span class="stock-badge ${p.inStock ? 'bg-in' : 'bg-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
-                <img src="${p.image}" class="card-img" alt="${p.name}">
-                <div class="card-info">
-                    <h3 style="font-size:1rem; margin-bottom:5px;">${p.name}</h3>
-                    <div style="color:#666;">${p.category}</div>
-                    <div style="color:var(--primary); font-weight:bold; margin-top:5px;">$${p.price}</div>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card product-card" onclick="openDetail('${p.id}')">
+                    <span class="stock-label ${p.inStock ? 'in-stock':'out-stock'}">
+                        ${p.inStock ? 'In Stock' : 'Out of Stock'}
+                    </span>
+                    <img src="${p.image}" class="card-img-top" alt="${p.name}">
+                    <div class="card-body text-center">
+                        <small class="text-muted">${p.category}</small>
+                        <h5 class="card-title my-2">${p.name}</h5>
+                        <p class="text-success fw-bold">$${p.price}</p>
+                    </div>
                 </div>
             </div>
         `).join('');
     }
 
-    // --- PRODUCT DETAIL ---
+    function filterCat(cat, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filtered = cat === 'All' ? allProducts : allProducts.filter(p => p.category === cat);
+        renderProducts(filtered);
+    }
+    
+    function doSearch() {
+        const q = document.getElementById('searchBox').value.toLowerCase();
+        const res = allProducts.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+        renderProducts(res);
+    }
+
+    // --- DETAILS & SELECTION ---
     function openDetail(id) {
-        currentProd = products.find(p => p.id == id);
-        selections = { size: "", height: "" }; // Reset selections
-        
-        // Reset Visuals
-        document.querySelectorAll('.slant-box').forEach(b => b.classList.remove('selected'));
-        
-        document.getElementById('detail-img').src = currentProd.image;
-        document.getElementById('detail-title').innerText = currentProd.name;
-        document.getElementById('detail-price').innerText = "$" + currentProd.price;
-        document.getElementById('detail-desc').innerText = currentProd.desc;
-        
-        const btn = document.getElementById('add-cart-btn');
-        if(currentProd.inStock) {
+        curProduct = allProducts.find(p => p.id == id);
+        selection = { size: null, height: null };
+
+        // Reset Visual Selections
+        document.querySelectorAll('.slant-box').forEach(el => el.classList.remove('selected'));
+
+        document.getElementById('dt-img').src = curProduct.image;
+        document.getElementById('dt-name').innerText = curProduct.name;
+        document.getElementById('dt-price').innerText = "$" + curProduct.price;
+        document.getElementById('dt-desc').innerText = curProduct.desc;
+
+        const btn = document.getElementById('add-btn');
+        if(curProduct.inStock) {
             btn.disabled = false;
             btn.innerText = "ADD TO CART";
-            btn.classList.remove('bg-out');
-            btn.classList.add('btn-primary');
         } else {
             btn.disabled = true;
             btn.innerText = "OUT OF STOCK";
-            btn.classList.remove('btn-primary');
-            btn.classList.add('bg-out');
         }
 
-        document.getElementById('product-page').classList.remove('d-none');
+        document.getElementById('detail-view').style.display = 'block';
+    }
+
+    function closeDetail() {
+        document.getElementById('detail-view').style.display = 'none';
     }
 
     function pick(type, val, el) {
-        // Remove 'selected' class from siblings in same container
-        let parent = el.parentNode;
-        Array.from(parent.children).forEach(c => c.classList.remove('selected'));
-        
-        // Add to clicked
+        // Clear siblings
+        el.parentNode.querySelectorAll('.slant-box').forEach(b => b.classList.remove('selected'));
+        // Select this
         el.classList.add('selected');
-        selections[type] = val;
-        console.log("Selected: ", selections);
+        selection[type] = val;
     }
 
     function addToCart() {
-        // Validation
-        if(!selections.size || !selections.height) {
-            alert("Please select both SIZE and HEIGHT to proceed.");
+        if(!selection.size || !selection.height) {
+            showToast("Please select Size & Height", true);
             return;
         }
-
-        // Add
-        cart.push({
-            id: currentProd.id,
-            name: currentProd.name,
-            price: currentProd.price,
-            image: currentProd.image,
-            size: selections.size,
-            height: selections.height,
-            qty: 1
-        });
-        
-        localStorage.setItem('alj_cart', JSON.stringify(cart));
-        updateBadge();
-        
-        // Toast Effect
-        const x = document.getElementById("toast");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        
-        setTimeout(() => {
-            closeProduct();
-        }, 1000); // Wait 1 sec then close
+        cart.push({ ...curProduct, size: selection.size, height: selection.height, qty: 1 });
+        saveCart();
+        showToast("Added to Cart Successfully");
+        closeDetail();
     }
 
-    // --- CART LOGIC ---
-    function updateBadge() { document.getElementById('cart-count').innerText = cart.length; }
+    function showToast(msg, isError = false) {
+        const tEl = document.getElementById('liveToast');
+        document.getElementById('toast-msg').innerText = msg;
+        tEl.classList.toggle('bg-success', !isError);
+        tEl.classList.toggle('bg-danger', isError);
+        const toast = new bootstrap.Toast(tEl);
+        toast.show();
+    }
+
+    // --- CART & CHECKOUT ---
+    function saveCart() {
+        localStorage.setItem('aljazaa_cart', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    function updateCartCount() {
+        document.getElementById('cart-count').innerText = cart.length;
+    }
 
     function renderCart() {
-        const div = document.getElementById('cart-items');
-        div.innerHTML = "";
+        const tb = document.getElementById('cart-table');
+        tb.innerHTML = '';
         let total = 0;
         
         if(cart.length === 0) {
-            div.innerHTML = "<p>Cart is empty.</p>";
-            document.getElementById('cart-total').innerText = "$0.00";
-            return;
+            tb.innerHTML = '<tr><td colspan="4" class="text-center py-4">Cart is Empty</td></tr>';
         }
 
         cart.forEach((item, idx) => {
             total += (item.price * 1);
-            div.innerHTML += `
-                <div class="cart-row">
-                    <div style="display:flex; align-items:center; gap:15px;">
-                        <img src="${item.image}" style="width:60px; height:60px; object-fit:cover;">
-                        <div>
-                            <strong>${item.name}</strong><br>
-                            <small>${item.size} / ${item.height}</small>
-                        </div>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:15px;">
-                        <strong>$${item.price}</strong>
-                        <button onclick="remItem(${idx})" style="background:none; border:none; color:red;"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
+            tb.innerHTML += `
+                <tr>
+                    <td><img src="${item.image}" width="50" class="rounded"></td>
+                    <td>
+                        <div class="fw-bold">${item.name}</div>
+                        <small class="text-muted">Size: ${item.size} | Height: ${item.height}</small>
+                    </td>
+                    <td>$${item.price}</td>
+                    <td class="text-end"><button class="btn btn-sm btn-outline-danger" onclick="delItem(${idx})"><i class="fas fa-trash"></i></button></td>
+                </tr>
             `;
         });
         document.getElementById('cart-total').innerText = "$" + total;
     }
 
-    function remItem(idx) {
-        cart.splice(idx, 1);
-        localStorage.setItem('alj_cart', JSON.stringify(cart));
+    function delItem(i) {
+        cart.splice(i, 1);
+        saveCart();
         renderCart();
-        updateBadge();
     }
 
-    function processOrder(e) {
+    function submitOrder(e) {
         e.preventDefault();
-        document.getElementById('loader').classList.remove('d-none');
+        document.getElementById('loader').style.display = 'flex';
         
         const payload = {
             action: 'placeOrder',
-            customer: {
+            cust: {
                 name: document.getElementById('c-name').value,
                 phone: document.getElementById('c-phone').value,
-                address: document.getElementById('c-addr').value
+                addr: document.getElementById('c-addr').value,
             },
-            payment: { ref: document.getElementById('c-ref').value },
+            pay: { ref: document.getElementById('c-ref').value },
             cart: cart,
             total: document.getElementById('cart-total').innerText
         };
 
-        fetch(SCRIPT_URL, {
+        fetch(WEB_APP_URL, {
             method: 'POST',
             body: JSON.stringify(payload)
         })
         .then(res => res.json())
         .then(data => {
-            document.getElementById('loader').classList.add('d-none');
+            document.getElementById('loader').style.display = 'none';
             if(data.status === 'success') {
-                alert("Order Placed Successfully! Your Order ID is: " + data.orderId);
                 cart = [];
-                localStorage.removeItem('alj_cart');
-                window.location.reload();
+                saveCart();
+                alert("Order Placed! ID: " + data.orderId);
+                goHome();
             } else {
-                alert("Failed: " + data.msg);
+                alert("Error placing order.");
             }
         });
     }
 
     function trackOrder() {
-        const id = document.getElementById('track-input').value;
+        const id = document.getElementById('track-id').value;
         if(!id) return;
-        document.getElementById('loader').classList.remove('d-none');
-        fetch(SCRIPT_URL + `?action=trackOrder&orderId=${id}`)
-        .then(res => res.json())
+        document.getElementById('loader').style.display = 'flex';
+        fetch(WEB_APP_URL + `?action=trackOrder&orderId=${id}`)
+        .then(r => r.json())
         .then(data => {
-            document.getElementById('loader').classList.add('d-none');
-            const box = document.getElementById('track-res');
-            box.classList.remove('d-none');
+            document.getElementById('loader').style.display = 'none';
+            const res = document.getElementById('track-result');
+            res.classList.remove('d-none');
             if(data.status === 'found') {
                 document.getElementById('t-status').innerText = data.currStatus;
                 document.getElementById('t-date').innerText = data.date;
                 document.getElementById('t-total').innerText = data.total;
             } else {
-                box.innerHTML = "<p>Order not found. Please check ID.</p>";
+                document.getElementById('t-status').innerText = "Order Not Found";
+                document.getElementById('t-date').innerText = "-";
+                document.getElementById('t-total').innerText = "-";
             }
         });
     }
 </script>
+
 </body>
 </html>
