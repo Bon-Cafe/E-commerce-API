@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Jazaa Ph.</title>
+    <title>Al-Jazaa Ph. | الجزاء</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
             --primary: #1b4d3e; /* Elegant Green */
             --primary-dark: #123329;
             --gold: #D4AF37;
-            --bg-color: #EBEBE9; /* Darker, Professional Warm Grey */
+            --bg-color: #EBEBE9; /* Warm Grey */
             --text: #333;
         }
 
@@ -46,12 +46,13 @@
         .carousel-item img { height: 65vh; object-fit: cover; }
         .carousel-caption { bottom: 20%; z-index: 2; }
         .carousel-caption h5 { font-size: 3rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5); color: #fff; margin-bottom: 15px; }
-        .btn-hero { background: white; color: var(--primary); padding: 12px 30px; font-weight: bold; border: none; margin-top: 15px; }
+        .btn-hero { background: white; color: var(--primary); padding: 12px 30px; font-weight: bold; border: none; margin-top: 15px; transition:0.3s; }
+        .btn-hero:hover { background: var(--gold); color: white; }
 
         /* Sidebar Categories */
         .cat-sidebar { position: sticky; top: 110px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         .cat-btn { display: block; width: 100%; text-align: left; padding: 12px 0; border: none; background: none; color: #666; transition: 0.3s; border-bottom: 1px solid #f0f0f0; font-size: 1rem; }
-        .cat-btn:hover, .cat-btn.active { color: var(--primary); font-weight: bold; padding-left: 10px; color: var(--primary); }
+        .cat-btn:hover, .cat-btn.active { color: var(--primary); font-weight: bold; padding-left: 10px; }
 
         /* ROUNDED Product Cards */
         .product-card { 
@@ -59,7 +60,7 @@
             background: white; 
             transition: all 0.3s ease; 
             cursor: pointer; 
-            border-radius: 20px; /* More rounded */
+            border-radius: 20px;
             overflow: hidden; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             height: 100%;
@@ -71,18 +72,20 @@
         .in-stock { background-color: var(--primary); }
         .out-stock { background-color: #999; }
 
-        /* Slant Boxes (For Height) */
+        /* Slant Boxes (Now for SIZE) */
         .slant-box {
             display: inline-block;
             border: 1px solid #ddd;
-            padding: 8px 12px; 
-            margin: 4px;
-            font-size: 0.8rem;
+            padding: 10px 20px; 
+            margin: 5px;
+            font-size: 0.9rem;
             transform: skewX(-15deg);
             cursor: pointer;
             transition: all 0.2s ease;
             background: white;
             color: #555;
+            min-width: 60px;
+            text-align: center;
         }
         .slant-box span { display: block; transform: skewX(15deg); font-weight: 600; }
         .slant-box:hover { border-color: var(--primary); background: #f9f9f9; }
@@ -95,6 +98,8 @@
         .btn-custom { background-color: var(--primary); color: white; border-radius: 8px; padding: 14px 25px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s; border: none; font-weight: 600; }
         .btn-custom:hover { background-color: var(--primary-dark); color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(27, 77, 62, 0.3); }
         .btn-custom:disabled { background-color: #ccc; box-shadow: none; transform: none; }
+        
+        /* Height Input */
         .form-control { padding: 12px; border-radius: 8px; border: 1px solid #ddd; background: #fdfdfd; }
         .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(27, 77, 62, 0.1); }
 
@@ -157,7 +162,6 @@
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <!-- Replace src with your image URL -->
                 <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=2073&auto=format&fit=crop" class="d-block w-100" alt="Fashion 1">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Timeless Modesty</h5>
@@ -223,19 +227,20 @@
                 
                 <hr class="my-4" style="opacity:0.1">
 
-                <!-- MANUAL SIZE INPUT -->
-                <div class="mb-4 bg-light p-4 rounded-3 border">
-                    <label class="fw-bold mb-2 text-dark">Size Selection</label>
-                    <input type="text" id="size-input" class="form-control" placeholder="Enter your size (e.g. Small, Medium, 36, Free Size)">
-                    <div class="form-text">Please type your preferred size.</div>
+                <!-- 1. SLANT BOXES FOR SIZE -->
+                <div class="mb-4">
+                    <label class="fw-bold mb-2 text-dark">Select Size</label>
+                    <div id="size-area" class="d-flex flex-wrap gap-2">
+                        <!-- JS generated: S, M, L... -->
+                    </div>
+                    <div class="form-text mt-1">Click to select your size.</div>
                 </div>
 
-                <!-- SLANT HEIGHT SELECTION -->
-                <div class="mb-4">
-                    <label class="fw-bold mb-2 text-dark">Height Selection (ft)</label>
-                    <div id="height-area" style="max-width:450px;">
-                        <!-- JS generated -->
-                    </div>
+                <!-- 2. MANUAL INPUT FOR HEIGHT -->
+                <div class="mb-4 bg-light p-4 rounded-3 border">
+                    <label class="fw-bold mb-2 text-dark">Your Height</label>
+                    <input type="text" id="height-input" class="form-control" placeholder="e.g. 5'4, 5ft 6in, or 165cm">
+                    <div class="form-text">Please enter your exact height for better fitting.</div>
                 </div>
 
                 <button id="add-btn" class="btn btn-custom w-100 py-3 mt-2 shadow-lg" onclick="addToCart()">ADD TO CART</button>
@@ -378,28 +383,24 @@
 <script>
     // CORE VARIABLES
     let allProducts = [];
-    let cart = JSON.parse(localStorage.getItem('aljazaa_cart_v2')) || [];
+    let cart = JSON.parse(localStorage.getItem('aljazaa_cart_v3')) || [];
     let curProduct = {};
-    let selectedHeight = null;
+    let selectedSize = null; // Changed to track Size Selection
 
     // INITIALIZATION
     document.addEventListener("DOMContentLoaded", () => {
         fetchProducts();
         updateCartUI();
-        generateHeightOptions();
+        generateSizeOptions(); // Now generating S-XXL boxes
     });
 
     // --- SETUP UI ---
-    function generateHeightOptions() {
-        let heightHtml = '';
-        for(let ft=4; ft<=5; ft++) {
-            for(let inc=0; inc<=11; inc++) {
-                if(ft===5 && inc > 9) break; 
-                let val = `${ft}'${inc}"`;
-                heightHtml += `<div class="slant-box" onclick="pickHeight('${val}', this)"><span>${val}</span></div>`;
-            }
-        }
-        document.getElementById('height-area').innerHTML = heightHtml;
+    function generateSizeOptions() {
+        const sizes = ["S", "M", "L", "XL", "XXL", "Free Size"];
+        const container = document.getElementById('size-area');
+        container.innerHTML = sizes.map(s => 
+            `<div class="slant-box" onclick="pickSize('${s}', this)"><span>${s}</span></div>`
+        ).join('');
     }
 
     // --- NAVIGATION ---
@@ -489,11 +490,11 @@
     // --- PRODUCT DETAILS ---
     function openDetail(id) {
         curProduct = allProducts.find(p => p.id == id);
-        selectedHeight = null;
+        selectedSize = null; // Reset Size
         
-        // Reset Inputs
-        document.getElementById('size-input').value = "";
+        // Reset Inputs (Visuals)
         document.querySelectorAll('.slant-box').forEach(el => el.classList.remove('selected'));
+        document.getElementById('height-input').value = ""; // Clear Height Text
 
         document.getElementById('dt-img').src = curProduct.image;
         document.getElementById('dt-cat').innerText = curProduct.category;
@@ -517,26 +518,30 @@
         document.getElementById('detail-view').style.display = 'none';
     }
 
-    function pickHeight(val, el) {
+    // Selection Logic for SIZE (Slanted Boxes)
+    function pickSize(val, el) {
         document.querySelectorAll('.slant-box').forEach(b => b.classList.remove('selected'));
         el.classList.add('selected');
-        selectedHeight = val;
+        selectedSize = val;
     }
 
     function addToCart() {
-        const sizeVal = document.getElementById('size-input').value.trim();
+        // 1. Get Manual Height
+        const heightVal = document.getElementById('height-input').value.trim();
         
-        if(!sizeVal) {
-            showToast("Please enter a Size.", true);
-            document.getElementById('size-input').focus();
+        // 2. Validation
+        if(!selectedSize) {
+            showToast("Please select a SIZE.", true);
             return;
         }
-        if(!selectedHeight) {
-            showToast("Please select a Height.", true);
+        if(!heightVal) {
+            showToast("Please enter your HEIGHT.", true);
+            document.getElementById('height-input').focus();
             return;
         }
 
-        cart.push({ ...curProduct, size: sizeVal, height: selectedHeight, qty: 1 });
+        // 3. Add to Cart
+        cart.push({ ...curProduct, size: selectedSize, height: heightVal, qty: 1 });
         saveCart();
         showToast("Item added to cart!");
         closeDetail();
@@ -544,7 +549,7 @@
 
     // --- CART & ORDER ---
     function saveCart() {
-        localStorage.setItem('aljazaa_cart_v2', JSON.stringify(cart));
+        localStorage.setItem('aljazaa_cart_v3', JSON.stringify(cart));
         updateCartUI();
     }
     function updateCartUI() {
